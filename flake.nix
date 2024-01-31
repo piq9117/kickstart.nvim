@@ -22,6 +22,7 @@
         in {
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
+              lua-language-server
               gcc
             ];
             shellHook = "export PS1='[$PWD]\n❄ '";
