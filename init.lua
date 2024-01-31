@@ -256,6 +256,10 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -342,7 +346,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
+local telescope = require 'telescope'
+
+telescope.setup {
+  extensions ={
+    file_browser = {
+      hijack_netrw = true
+    },
+  },
   defaults = {
     mappings = {
       i = {
@@ -353,8 +364,10 @@ require('telescope').setup {
   },
 }
 
+telescope.load_extension 'file_browser'
+
 -- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+pcall(telescope.load_extension, 'fzf')
 
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path

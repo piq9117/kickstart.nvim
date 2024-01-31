@@ -3,7 +3,7 @@ local lua_ls_config = {
 		Lua = {
 			diagnostics = {globals = {"vim"}},
 			runtime = {version = "LuaJIT"},
-			telemetry = {enable = false},
+			telemetry = {enable = true},
 
 		}
 	}
