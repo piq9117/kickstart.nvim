@@ -364,7 +364,16 @@ telescope.setup {
   },
 }
 
+-- [[ Telescope File Browser ]]
 telescope.load_extension 'file_browser'
+
+-- open file_browser in from current path
+vim.api.nvim_set_keymap(
+  'n',
+  '<space>fb',
+  ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
+  {noremap = true}
+)
 
 -- Enable telescope fzf native, if installed
 pcall(telescope.load_extension, 'fzf')
