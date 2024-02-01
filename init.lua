@@ -43,7 +43,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
+vim.wo.relativenumber = true
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -349,17 +349,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local telescope = require 'telescope'
 
 telescope.setup {
-  extensions ={
-    file_browser = {
-      hijack_netrw = true
-    },
-  },
   defaults = {
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
+    },
+  },
+  pickers = {
+    find_files = {
+      find_command = {'rg', '--files', '--hidden', '-g', '!.git'},
+    },
+  },
+  extensions ={
+    file_browser = {
+      hijack_netrw = true
     },
   },
 }
@@ -370,7 +375,7 @@ telescope.load_extension 'file_browser'
 -- open file_browser in from current path
 vim.api.nvim_set_keymap(
   'n',
-  '<space>fb',
+  '<space>fd',
   ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
   {noremap = true}
 )
