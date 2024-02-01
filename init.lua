@@ -195,7 +195,7 @@ require('lazy').setup({
     config = function()
       require('onedark').setup {
         -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
+        style = 'darker', -- dark, darker, cool, deep, warm, warmer, light
       }
       require('onedark').load()
     end,
@@ -259,6 +259,36 @@ require('lazy').setup({
   {
     'nvim-telescope/telescope-file-browser.nvim',
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = {
+      {'nvim-treesitter/nvim-treesitter', lazy = true},
+    },
+    event = 'VeryLazy',
+    config = function()
+      require('orgmode').setup_ts_grammar()
+
+      require('orgmode').setup({
+        mappings = {
+          org = {
+            org_toggle_checkbox = '<leader><space>',
+          },
+        },
+      })
+
+      require('nvim-treesitter.configs').setup({
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { 'org' },
+        },
+        ensure_installed = {'org'}
+      })
+
+      require('orgmode').setup({
+        org_agenda_files = '~/code/notes/**/*'
+      })
+    end,
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -456,7 +486,7 @@ vim.defer_fn(function()
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
     -- List of parsers to ignore installing
