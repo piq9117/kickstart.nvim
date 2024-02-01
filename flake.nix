@@ -24,6 +24,8 @@
             buildInputs = with pkgs; [
               lua-language-server
               gcc
+              stylua
+              treefmt
             ];
             shellHook = "export PS1='[$PWD]\n❄ '";
           };

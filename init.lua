@@ -188,20 +188,6 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    lazy = false,
-    config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'darker', -- dark, darker, cool, deep, warm, warmer, light
-      }
-      require('onedark').load()
-    end,
-  },
-
-  {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
@@ -258,7 +244,7 @@ require('lazy').setup({
   },
   {
     'nvim-telescope/telescope-file-browser.nvim',
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -359,12 +345,12 @@ telescope.setup {
   },
   pickers = {
     find_files = {
-      find_command = {'rg', '--files', '--hidden', '-g', '!.git'},
+      find_command = { 'rg', '--files', '--hidden', '-g', '!.git' },
     },
   },
-  extensions ={
+  extensions = {
     file_browser = {
-      hijack_netrw = true
+      hijack_netrw = true,
     },
   },
 }
@@ -373,12 +359,7 @@ telescope.setup {
 telescope.load_extension 'file_browser'
 
 -- open file_browser in from current path
-vim.api.nvim_set_keymap(
-  'n',
-  '<space>fd',
-  ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
-  {noremap = true}
-)
+vim.api.nvim_set_keymap('n', '<space>fd', ':Telescope file_browser path=%:p:h select_buffer=true<CR>', { noremap = true })
 
 -- Enable telescope fzf native, if installed
 pcall(telescope.load_extension, 'fzf')

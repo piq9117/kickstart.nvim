@@ -1,0 +1,5 @@
+[formatter.lua]
+command = "stylua"
+options = []
+includes = ["*.lua"]
+excludes = []
